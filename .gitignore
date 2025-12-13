@@ -1,0 +1,45 @@
+# Build artifacts
+*.exe
+*.out
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+
+# CMake build directories
+build/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+# Executables (don't commit compiled binaries)
+examples/basics/hello_world
+examples/data_types/data_types_demo
+examples/control_flow/control_flow_demo
+examples/functions/functions_demo
+examples/arrays_vectors/arrays_vectors_demo
+examples/pointers_references/pointers_references_demo
+examples/oop/oop_demo
+examples/memory_management/memory_demo
+examples/stl/stl_demo
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
