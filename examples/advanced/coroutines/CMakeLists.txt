@@ -1,0 +1,2 @@
+add_executable(coroutines_demo coroutines_demo.cpp)
+target_compile_features(coroutines_demo PRIVATE cxx_std_23)

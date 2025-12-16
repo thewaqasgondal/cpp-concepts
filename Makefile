@@ -28,8 +28,9 @@ EXECUTABLES = \
 	$(STL_DIR)/stl_demo \
 	$(ADVANCED_DIR)/concurrency/concurrency_demo \
 	$(ADVANCED_DIR)/modern_cpp/modern_cpp_demo \
-	$(ADVANCED_DIR)/templates/templates_demo
-
+	$(ADVANCED_DIR)/templates/templates_demo	$(ADVANCED_DIR)/coroutines/coroutines_demo \
+	$(ADVANCED_DIR)/thread_pool/thread_pool_demo \
+	$(ADVANCED_DIR)/thread_pool/thread_pool_tests \
 # Default target
 all: $(EXECUTABLES)
 
@@ -66,6 +67,15 @@ $(ADVANCED_DIR)/modern_cpp/modern_cpp_demo: $(ADVANCED_DIR)/modern_cpp/modern_cp
 $(ADVANCED_DIR)/templates/templates_demo: $(ADVANCED_DIR)/templates/templates_demo.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
+$(ADVANCED_DIR)/coroutines/coroutines_demo: $(ADVANCED_DIR)/coroutines/coroutines_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(ADVANCED_DIR)/thread_pool/thread_pool_demo: $(ADVANCED_DIR)/thread_pool/thread_pool_demo.cpp $(ADVANCED_DIR)/thread_pool/thread_pool.h
+	$(CXX) $(CXXFLAGS) -pthread -o $@ $<
+
+$(ADVANCED_DIR)/thread_pool/thread_pool_tests: $(ADVANCED_DIR)/thread_pool/test/thread_pool_tests.cpp $(ADVANCED_DIR)/thread_pool/thread_pool.h
+	$(CXX) $(CXXFLAGS) -pthread -o $@ $< -I$(ADVANCED_DIR)/thread_pool -lstdc++ -lpthread
+
 
 $(STL_DIR)/stl_demo: $(STL_DIR)/stl_demo.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
@@ -93,6 +103,8 @@ help:
 	@echo "  concurrency_demo"
 	@echo "  modern_cpp_demo"
 	@echo "  templates_demo"
+	@echo "  coroutines_demo"
+	@echo "  thread_pool_demo"
 	@echo "  run-all    - Build and run all examples"
 	@echo "  help       - Show this help message"
 	@echo ""
