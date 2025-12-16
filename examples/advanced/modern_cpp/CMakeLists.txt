@@ -1,0 +1,2 @@
+add_executable(modern_cpp_demo modern_cpp_demo.cpp)
+target_compile_features(modern_cpp_demo PRIVATE cxx_std_23)

@@ -1,0 +1,2 @@
+add_executable(concurrency_demo concurrency_demo.cpp)
+target_compile_features(concurrency_demo PRIVATE cxx_std_23)

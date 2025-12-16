@@ -66,6 +66,9 @@ make
 - **oop/oop_demo.cpp** - Classes, inheritance, polymorphism, and encapsulation
 - **memory_management/memory_demo.cpp** - Dynamic allocation and smart pointers
 - **stl/stl_demo.cpp** - Standard Template Library containers and algorithms
+- **advanced/concurrency/concurrency_demo.cpp** - Threads, condition_variable, and producer/consumer example
+- **advanced/modern_cpp/modern_cpp_demo.cpp** - Move semantics, smart pointers, and RVO demonstration
+- **advanced/templates/templates_demo.cpp** - C++20/C++23 concepts, type traits, and constexpr examples
 
 Each example includes detailed comments explaining the concepts being demonstrated.
 

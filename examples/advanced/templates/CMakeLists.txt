@@ -1,0 +1,2 @@
+add_executable(templates_demo templates_demo.cpp)
+target_compile_features(templates_demo PRIVATE cxx_std_23)

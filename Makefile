@@ -1,7 +1,7 @@
 # C++ Concepts Examples - Makefile
 
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -O2
+CXXFLAGS = -std=c++23 -Wall -Wextra -O2
 
 # Source directories
 BASICS_DIR = examples/basics
@@ -13,6 +13,7 @@ POINTERS_REFS_DIR = examples/pointers_references
 OOP_DIR = examples/oop
 MEMORY_DIR = examples/memory_management
 STL_DIR = examples/stl
+ADVANCED_DIR = examples/advanced
 
 # Executable names
 EXECUTABLES = \
@@ -24,7 +25,10 @@ EXECUTABLES = \
 	$(POINTERS_REFS_DIR)/pointers_references_demo \
 	$(OOP_DIR)/oop_demo \
 	$(MEMORY_DIR)/memory_demo \
-	$(STL_DIR)/stl_demo
+	$(STL_DIR)/stl_demo \
+	$(ADVANCED_DIR)/concurrency/concurrency_demo \
+	$(ADVANCED_DIR)/modern_cpp/modern_cpp_demo \
+	$(ADVANCED_DIR)/templates/templates_demo
 
 # Default target
 all: $(EXECUTABLES)
@@ -53,6 +57,15 @@ $(OOP_DIR)/oop_demo: $(OOP_DIR)/oop_demo.cpp
 
 $(MEMORY_DIR)/memory_demo: $(MEMORY_DIR)/memory_demo.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
+$(ADVANCED_DIR)/concurrency/concurrency_demo: $(ADVANCED_DIR)/concurrency/concurrency_demo.cpp
+	$(CXX) $(CXXFLAGS) -pthread -o $@ $<
+
+$(ADVANCED_DIR)/modern_cpp/modern_cpp_demo: $(ADVANCED_DIR)/modern_cpp/modern_cpp_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(ADVANCED_DIR)/templates/templates_demo: $(ADVANCED_DIR)/templates/templates_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
 
 $(STL_DIR)/stl_demo: $(STL_DIR)/stl_demo.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
@@ -77,6 +90,9 @@ help:
 	@echo "Available targets:"
 	@echo "  all        - Build all examples"
 	@echo "  clean      - Remove all built executables"
+	@echo "  concurrency_demo"
+	@echo "  modern_cpp_demo"
+	@echo "  templates_demo"
 	@echo "  run-all    - Build and run all examples"
 	@echo "  help       - Show this help message"
 	@echo ""
