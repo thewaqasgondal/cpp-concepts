@@ -31,6 +31,8 @@ EXECUTABLES = \
 	$(ADVANCED_DIR)/templates/templates_demo	$(ADVANCED_DIR)/coroutines/coroutines_demo \
 	$(ADVANCED_DIR)/thread_pool/thread_pool_demo \
 	$(ADVANCED_DIR)/thread_pool/thread_pool_tests \
+	$(ADVANCED_DIR)/dsa/dsa_demo \
+	$(ADVANCED_DIR)/dsa/dsa_tests \
 # Default target
 all: $(EXECUTABLES)
 
@@ -75,6 +77,12 @@ $(ADVANCED_DIR)/thread_pool/thread_pool_demo: $(ADVANCED_DIR)/thread_pool/thread
 
 $(ADVANCED_DIR)/thread_pool/thread_pool_tests: $(ADVANCED_DIR)/thread_pool/test/thread_pool_tests.cpp $(ADVANCED_DIR)/thread_pool/thread_pool.h
 	$(CXX) $(CXXFLAGS) -pthread -o $@ $< -I$(ADVANCED_DIR)/thread_pool -lstdc++ -lpthread
+
+$(ADVANCED_DIR)/dsa/dsa_demo: $(ADVANCED_DIR)/dsa/dsa_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(ADVANCED_DIR)/dsa/dsa_tests: $(ADVANCED_DIR)/dsa/dsa_tests.cpp $(ADVANCED_DIR)/dsa/dsa_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
 
 
 $(STL_DIR)/stl_demo: $(STL_DIR)/stl_demo.cpp

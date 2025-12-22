@@ -9,6 +9,7 @@ Included examples:
 - **templates/templates_demo.cpp** — C++20 concepts, type traits, and `constexpr` compile-time computation.
 - **coroutines/coroutines_demo.cpp** — C++20 coroutine generator demo
 - **thread_pool/thread_pool_demo.cpp** — Thread pool using `std::jthread` and futures (includes tests)
+- **dsa/dsa_demo.cpp** — Data structures & algorithms: BFS, DFS, and Dijkstra
 
 Build using CMake (top-level):
 
@@ -21,7 +22,12 @@ make
 ./examples/advanced/templates/templates_demo
 ./examples/advanced/coroutines/coroutines_demo
 ./examples/advanced/thread_pool/thread_pool_demo
+./examples/advanced/dsa/dsa_demo
 
-# To run tests (requires network to fetch Catch2 via CMake FetchContent):
-ctest --output-on-failure
+# To run tests (built with make):
+./examples/advanced/thread_pool/thread_pool_tests
+./examples/advanced/dsa/dsa_tests
+
+# (CMake/CTest may also run tests configured in CMake)
+ctest --output-on-failure || true
 ```
