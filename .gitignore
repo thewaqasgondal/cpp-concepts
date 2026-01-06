@@ -7,6 +7,20 @@
 *.dylib
 *.dll
 
+# Example executables (no extension on Unix)
+examples/basics/hello_world
+examples/data_types/data_types_demo
+examples/control_flow/control_flow_demo
+examples/functions/functions_demo
+examples/arrays_vectors/arrays_vectors_demo
+examples/pointers_references/pointers_references_demo
+examples/strings/strings_demo
+examples/templates/templates_demo
+examples/exceptions/exceptions_demo
+examples/oop/oop_demo
+examples/memory_management/memory_demo
+examples/stl/stl_demo
+
 # CMake build directories
 build/
 cmake-build-*/
