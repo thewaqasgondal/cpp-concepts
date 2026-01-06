@@ -10,6 +10,9 @@ CONTROL_FLOW_DIR = examples/control_flow
 FUNCTIONS_DIR = examples/functions
 ARRAYS_VECTORS_DIR = examples/arrays_vectors
 POINTERS_REFS_DIR = examples/pointers_references
+STRINGS_DIR = examples/strings
+TEMPLATES_DIR = examples/templates
+EXCEPTIONS_DIR = examples/exceptions
 OOP_DIR = examples/oop
 MEMORY_DIR = examples/memory_management
 STL_DIR = examples/stl
@@ -22,6 +25,9 @@ EXECUTABLES = \
 	$(FUNCTIONS_DIR)/functions_demo \
 	$(ARRAYS_VECTORS_DIR)/arrays_vectors_demo \
 	$(POINTERS_REFS_DIR)/pointers_references_demo \
+	$(STRINGS_DIR)/strings_demo \
+	$(TEMPLATES_DIR)/templates_demo \
+	$(EXCEPTIONS_DIR)/exceptions_demo \
 	$(OOP_DIR)/oop_demo \
 	$(MEMORY_DIR)/memory_demo \
 	$(STL_DIR)/stl_demo
@@ -46,6 +52,15 @@ $(ARRAYS_VECTORS_DIR)/arrays_vectors_demo: $(ARRAYS_VECTORS_DIR)/arrays_vectors_
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 $(POINTERS_REFS_DIR)/pointers_references_demo: $(POINTERS_REFS_DIR)/pointers_references_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(STRINGS_DIR)/strings_demo: $(STRINGS_DIR)/strings_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(TEMPLATES_DIR)/templates_demo: $(TEMPLATES_DIR)/templates_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(EXCEPTIONS_DIR)/exceptions_demo: $(EXCEPTIONS_DIR)/exceptions_demo.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 $(OOP_DIR)/oop_demo: $(OOP_DIR)/oop_demo.cpp
@@ -87,6 +102,9 @@ help:
 	@echo "  functions_demo"
 	@echo "  arrays_vectors_demo"
 	@echo "  pointers_references_demo"
+	@echo "  strings_demo"
+	@echo "  templates_demo"
+	@echo "  exceptions_demo"
 	@echo "  oop_demo"
 	@echo "  memory_demo"
 	@echo "  stl_demo"

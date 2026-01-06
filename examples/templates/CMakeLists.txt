@@ -1,0 +1,1 @@
+add_executable(templates_demo templates_demo.cpp)

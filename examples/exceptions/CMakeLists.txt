@@ -1,0 +1,1 @@
+add_executable(exceptions_demo exceptions_demo.cpp)

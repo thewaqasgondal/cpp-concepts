@@ -11,6 +11,12 @@ add_subdirectory(examples/control_flow)
 add_subdirectory(examples/functions)
 add_subdirectory(examples/arrays_vectors)
 add_subdirectory(examples/pointers_references)
+add_subdirectory(examples/strings)
+add_subdirectory(examples/templates)
+add_subdirectory(examples/exceptions)
 add_subdirectory(examples/oop)
 add_subdirectory(examples/memory_management)
 add_subdirectory(examples/stl)
+
+# Add tests
+add_subdirectory(test)

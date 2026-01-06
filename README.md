@@ -1,5 +1,10 @@
 # C++ Cheatsheet
 
+[![C++](https://img.shields.io/badge/C%2B%2B-17/20/23-blue.svg)](https://isocpp.org/)
+[![CMake](https://img.shields.io/badge/CMake-3.10+-blue.svg)](https://cmake.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/thewaqasgondal/cpp-concepts/workflows/CI/badge.svg)](https://github.com/thewaqasgondal/cpp-concepts/actions)
+
 A comprehensive reference guide for C++ programming concepts, syntax, and best practices.
 
 ## Table of Contents
@@ -11,11 +16,13 @@ A comprehensive reference guide for C++ programming concepts, syntax, and best p
 5. [Arrays and Vectors](#arrays-and-vectors)
 6. [Pointers and References](#pointers-and-references)
 7. [Strings](#strings)
-8. [Object-Oriented Programming](#object-oriented-programming)
-9. [Memory Management](#memory-management)
-10. [Standard Library](#standard-library)
-11. [Advanced Topics](#advanced-topics)
-12. [Examples](#examples)
+8. [Templates](#templates)
+9. [Exception Handling](#exception-handling)
+10. [Object-Oriented Programming](#object-oriented-programming)
+11. [Memory Management](#memory-management)
+12. [Standard Library](#standard-library)
+13. [Advanced Topics](#advanced-topics)
+14. [Examples](#examples)
 
 ---
 
@@ -63,6 +70,9 @@ make
 - **functions/functions_demo.cpp** - Function declarations, overloading, and recursion
 - **arrays_vectors/arrays_vectors_demo.cpp** - Arrays and dynamic vectors
 - **pointers_references/pointers_references_demo.cpp** - Pointers, references, and memory addressing
+- **strings/strings_demo.cpp** - String operations, manipulation, and algorithms
+- **templates/templates_demo.cpp** - Function and class templates, specialization
+- **exceptions/exceptions_demo.cpp** - Exception handling, custom exceptions, RAII
 - **oop/oop_demo.cpp** - Classes, inheritance, polymorphism, and encapsulation
 - **memory_management/memory_demo.cpp** - Dynamic allocation and smart pointers
 - **stl/stl_demo.cpp** - Standard Template Library containers and algorithms
@@ -301,6 +311,88 @@ if (str1 == str2) {
 }
 
 str1.compare(str2);    // Returns 0 if equal, <0 or >0 if different
+```
+
+---
+
+## Templates
+
+### Function Templates
+```cpp
+// Function template
+template <typename T>
+T maximum(T a, T b) {
+    return (a > b) ? a : b;
+}
+
+// Usage
+int maxInt = maximum(5, 10);
+double maxDouble = maximum(3.14, 2.71);
+```
+
+### Class Templates
+```cpp
+template <typename T>
+class Container {
+private:
+    T data;
+public:
+    void set(T val) { data = val; }
+    T get() { return data; }
+};
+
+// Usage
+Container<int> intContainer;
+Container<string> stringContainer;
+```
+
+### Template Specialization
+```cpp
+template <>
+class Container<string> {
+    // Specialized implementation for strings
+};
+```
+
+---
+
+## Exception Handling
+
+### Basic Try-Catch
+```cpp
+try {
+    // Code that may throw exceptions
+    if (denominator == 0) {
+        throw runtime_error("Division by zero");
+    }
+} catch (const runtime_error& e) {
+    cout << "Error: " << e.what() << endl;
+}
+```
+
+### Multiple Catch Blocks
+```cpp
+try {
+    // Risky code
+} catch (const invalid_argument& e) {
+    // Handle invalid arguments
+} catch (const out_of_range& e) {
+    // Handle out of range errors
+} catch (const exception& e) {
+    // Handle any other standard exceptions
+} catch (...) {
+    // Handle any exception
+}
+```
+
+### Custom Exceptions
+```cpp
+class MyException : public exception {
+public:
+    const char* what() const noexcept override {
+        return "My custom error message";
+    }
+};
 ```
 
 ---
@@ -601,4 +693,4 @@ for (auto num : v) {
 
 ---
 
-**Last Updated:** December 13, 2025
+**Last Updated:** January 6, 2026
