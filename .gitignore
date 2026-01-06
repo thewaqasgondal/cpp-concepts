@@ -20,6 +20,10 @@ examples/exceptions/exceptions_demo
 examples/oop/oop_demo
 examples/memory_management/memory_demo
 examples/stl/stl_demo
+examples/modern_cpp/modern_cpp_demo
+examples/file_io/file_io_demo
+examples/concurrency/concurrency_demo
+examples/move_semantics/move_semantics_demo
 
 # CMake build directories
 build/

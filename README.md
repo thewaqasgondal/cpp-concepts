@@ -21,8 +21,12 @@ A comprehensive reference guide for C++ programming concepts, syntax, and best p
 10. [Object-Oriented Programming](#object-oriented-programming)
 11. [Memory Management](#memory-management)
 12. [Standard Library](#standard-library)
-13. [Advanced Topics](#advanced-topics)
-14. [Examples](#examples)
+13. [Modern C++ Features](#modern-c-features)
+14. [File I/O](#file-io)
+15. [Concurrency](#concurrency)
+16. [Move Semantics](#move-semantics)
+17. [Advanced Topics](#advanced-topics)
+18. [Examples](#examples)
 
 ---
 
@@ -76,6 +80,10 @@ make
 - **oop/oop_demo.cpp** - Classes, inheritance, polymorphism, and encapsulation
 - **memory_management/memory_demo.cpp** - Dynamic allocation and smart pointers
 - **stl/stl_demo.cpp** - Standard Template Library containers and algorithms
+- **modern_cpp/modern_cpp_demo.cpp** - Modern C++ features (auto, lambdas, smart pointers, etc.)
+- **file_io/file_io_demo.cpp** - File input/output operations and filesystem library
+- **concurrency/concurrency_demo.cpp** - Threading, mutexes, condition variables, futures
+- **move_semantics/move_semantics_demo.cpp** - Rvalue references and move semantics
 
 Each example includes detailed comments explaining the concepts being demonstrated.
 
@@ -577,6 +585,111 @@ while (getline(infile, line)) {
     cout << line << endl;
 }
 infile.close();
+```
+
+---
+
+## Modern C++ Features
+
+### Auto and Decltype
+```cpp
+auto x = 42;        // int
+auto y = 3.14;      // double
+decltype(x) z = x;  // int (same type as x)
+```
+
+### Lambdas
+```cpp
+auto add = [](int a, int b) { return a + b; };
+auto result = add(5, 3);  // result = 8
+```
+
+### Smart Pointers
+```cpp
+auto ptr = make_unique<int>(42);
+auto shared = make_shared<string>("hello");
+```
+
+---
+
+## File I/O
+
+### Text File Operations
+```cpp
+// Writing
+ofstream outfile("file.txt");
+outfile << "Hello, World!" << endl;
+
+// Reading
+ifstream infile("file.txt");
+string line;
+while (getline(infile, line)) {
+    cout << line << endl;
+}
+```
+
+### Binary File Operations
+```cpp
+vector<int> data = {1, 2, 3, 4, 5};
+ofstream binfile("data.bin", ios::binary);
+binfile.write(reinterpret_cast<const char*>(data.data()),
+              data.size() * sizeof(int));
+```
+
+---
+
+## Concurrency
+
+### Threads
+```cpp
+thread t([]() {
+    cout << "Hello from thread!" << endl;
+});
+t.join();
+```
+
+### Mutex
+```cpp
+mutex mtx;
+int shared_data = 0;
+
+void worker() {
+    lock_guard<mutex> lock(mtx);
+    shared_data++;
+}
+```
+
+### Futures
+```cpp
+auto future = async([]() { return 42; });
+int result = future.get();
+```
+
+---
+
+## Move Semantics
+
+### Rvalue References
+```cpp
+int&& rref = 42;  // rvalue reference
+string&& str_ref = string("temp");  // rvalue reference
+```
+
+### Move Constructor
+```cpp
+class MyClass {
+    MyClass(MyClass&& other) noexcept {
+        // Move resources from other
+        data = other.data;
+        other.data = nullptr;
+    }
+};
+```
+
+### std::move
+```cpp
+string s1 = "hello";
+string s2 = move(s1);  // s1 is now empty
 ```
 
 ---

@@ -17,6 +17,10 @@ add_subdirectory(examples/exceptions)
 add_subdirectory(examples/oop)
 add_subdirectory(examples/memory_management)
 add_subdirectory(examples/stl)
+add_subdirectory(examples/modern_cpp)
+add_subdirectory(examples/file_io)
+add_subdirectory(examples/concurrency)
+add_subdirectory(examples/move_semantics)
 
 # Add tests
 add_subdirectory(test)

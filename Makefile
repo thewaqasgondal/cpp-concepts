@@ -16,6 +16,10 @@ EXCEPTIONS_DIR = examples/exceptions
 OOP_DIR = examples/oop
 MEMORY_DIR = examples/memory_management
 STL_DIR = examples/stl
+MODERN_CPP_DIR = examples/modern_cpp
+FILE_IO_DIR = examples/file_io
+CONCURRENCY_DIR = examples/concurrency
+MOVE_SEMANTICS_DIR = examples/move_semantics
 
 # Executable names
 EXECUTABLES = \
@@ -30,7 +34,11 @@ EXECUTABLES = \
 	$(EXCEPTIONS_DIR)/exceptions_demo \
 	$(OOP_DIR)/oop_demo \
 	$(MEMORY_DIR)/memory_demo \
-	$(STL_DIR)/stl_demo
+	$(STL_DIR)/stl_demo \
+	$(MODERN_CPP_DIR)/modern_cpp_demo \
+	$(FILE_IO_DIR)/file_io_demo \
+	$(CONCURRENCY_DIR)/concurrency_demo \
+	$(MOVE_SEMANTICS_DIR)/move_semantics_demo
 
 # Default target
 all: $(EXECUTABLES)
@@ -72,6 +80,18 @@ $(MEMORY_DIR)/memory_demo: $(MEMORY_DIR)/memory_demo.cpp
 $(STL_DIR)/stl_demo: $(STL_DIR)/stl_demo.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
+$(MODERN_CPP_DIR)/modern_cpp_demo: $(MODERN_CPP_DIR)/modern_cpp_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(FILE_IO_DIR)/file_io_demo: $(FILE_IO_DIR)/file_io_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(CONCURRENCY_DIR)/concurrency_demo: $(CONCURRENCY_DIR)/concurrency_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(MOVE_SEMANTICS_DIR)/move_semantics_demo: $(MOVE_SEMANTICS_DIR)/move_semantics_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
 # Clean build artifacts
 clean:
 	rm -f $(EXECUTABLES)
@@ -108,5 +128,9 @@ help:
 	@echo "  oop_demo"
 	@echo "  memory_demo"
 	@echo "  stl_demo"
+	@echo "  modern_cpp_demo"
+	@echo "  file_io_demo"
+	@echo "  concurrency_demo"
+	@echo "  move_semantics_demo"
 
 .PHONY: all clean run-all help
