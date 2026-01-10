@@ -25,6 +25,10 @@ add_subdirectory(examples/move_semantics)
 add_subdirectory(examples/algorithms)
 add_subdirectory(examples/design_patterns)
 add_subdirectory(examples/serialization)
+add_subdirectory(examples/memory_pools)
+add_subdirectory(examples/template_metaprogramming)
+add_subdirectory(examples/performance_optimization)
+add_subdirectory(examples/plugin_system)
 
 # Add tests
 add_subdirectory(test)

@@ -28,8 +28,12 @@ A comprehensive reference guide for C++ programming concepts, syntax, and best p
 17. [Algorithms](#algorithms)
 18. [Design Patterns](#design-patterns)
 19. [Serialization](#serialization)
-20. [Advanced Topics](#advanced-topics)
-21. [Examples](#examples)
+20. [Memory Pools](#memory-pools)
+21. [Template Metaprogramming](#template-metaprogramming)
+22. [Performance Optimization](#performance-optimization)
+23. [Plugin System](#plugin-system)
+24. [Advanced Topics](#advanced-topics)
+25. [Examples](#examples)
 
 ---
 
@@ -94,6 +98,10 @@ make
 - **algorithms/algorithms_demo.cpp** - Advanced STL algorithms (sorting, searching, modifying)
 - **design_patterns/design_patterns_demo.cpp** - Common design patterns (Singleton, Factory, Observer, etc.)
 - **serialization/serialization_demo.cpp** - Data serialization (JSON, binary, XML, CSV)
+- **memory_pools/memory_pools_demo.cpp** - Custom memory allocators, object pools, and arena allocation
+- **template_metaprogramming/template_metaprogramming_demo.cpp** - Type traits, SFINAE, constexpr, and expression templates
+- **performance_optimization/performance_optimization_demo.cpp** - Cache-friendly code, branch prediction, and profiling
+- **plugin_system/plugin_system_demo.cpp** - Dynamic plugin loading and management system
 
 Each example includes detailed comments explaining the concepts being demonstrated.
 
@@ -873,6 +881,165 @@ string toXml(const Person& p) {
     xml += "</person>\n";
     return xml;
 }
+```
+
+---
+
+## Memory Pools
+
+Custom memory allocation strategies for improved performance and memory usage patterns.
+
+### Object Pool
+```cpp
+template<typename T>
+class ObjectPool {
+private:
+    vector<T*> available;
+    vector<T*> inUse;
+
+public:
+    T* acquire() {
+        if (available.empty()) {
+            return new T();
+        }
+        T* obj = available.back();
+        available.pop_back();
+        inUse.push_back(obj);
+        return obj;
+    }
+
+    void release(T* obj) {
+        auto it = find(inUse.begin(), inUse.end(), obj);
+        if (it != inUse.end()) {
+            inUse.erase(it);
+            available.push_back(obj);
+        }
+    }
+};
+```
+
+### Arena Allocator
+```cpp
+class ArenaAllocator {
+private:
+    vector<char*> blocks;
+    char* currentBlock;
+    size_t currentOffset;
+    size_t blockSize;
+
+public:
+    ArenaAllocator(size_t blockSize = 4096) : blockSize(blockSize) {
+        allocateBlock();
+    }
+
+    void* allocate(size_t size) {
+        if (currentOffset + size > blockSize) {
+            allocateBlock();
+        }
+        void* ptr = currentBlock + currentOffset;
+        currentOffset += size;
+        return ptr;
+    }
+
+    void reset() {
+        currentOffset = 0;
+    }
+};
+```
+
+---
+
+## Template Metaprogramming
+
+Compile-time programming using C++ templates.
+
+### Type Traits
+```cpp
+template<typename T>
+struct is_pointer : false_type {};
+
+template<typename T>
+struct is_pointer<T*> : true_type {};
+```
+
+### Constexpr Functions
+```cpp
+constexpr unsigned long long factorial(unsigned int n) {
+    return n <= 1 ? 1 : n * factorial(n - 1);
+}
+```
+
+### SFINAE
+```cpp
+template<typename T>
+enable_if_t<is_integral_v<T>, void>
+print_integral(const T& value) {
+    cout << "Integral: " << value << endl;
+}
+```
+
+---
+
+## Performance Optimization
+
+Techniques for writing high-performance C++ code.
+
+### Cache-Friendly Data Structures
+```cpp
+// Array of Structures (AOS) - cache unfriendly
+struct ParticleAOS {
+    float x, y, z, vx, vy, vz, mass;
+};
+
+// Structure of Arrays (SOA) - cache friendly
+struct ParticleSOA {
+    vector<float> x, y, z;
+    vector<float> vx, vy, vz;
+    vector<float> mass;
+};
+```
+
+### Branch Prediction Optimization
+```cpp
+// Branchy version (hard to predict)
+if (x > 0) sum += x; else sum -= x;
+
+// Branchless version (predictable)
+int sign = (x > 0) ? 1 : -1;
+sum += sign * abs(x);
+```
+
+---
+
+## Plugin System
+
+Dynamic loading of shared libraries at runtime.
+
+### Plugin Interface
+```cpp
+class Plugin {
+public:
+    virtual ~Plugin() = default;
+    virtual string getName() const = 0;
+    virtual string getVersion() const = 0;
+    virtual void execute() = 0;
+    virtual bool initialize() = 0;
+    virtual void shutdown() = 0;
+};
+```
+
+### Plugin Manager
+```cpp
+class PluginManager {
+private:
+    unordered_map<string, void*> loadedLibraries;
+    unordered_map<string, unique_ptr<Plugin>> loadedPlugins;
+
+public:
+    bool loadPlugin(const string& pluginName);
+    bool unloadPlugin(const string& pluginName);
+    bool executePlugin(const string& pluginName);
+};
 ```
 
 ---

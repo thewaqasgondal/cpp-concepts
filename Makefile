@@ -24,6 +24,10 @@ MOVE_SEMANTICS_DIR = examples/move_semantics
 ALGORITHMS_DIR = examples/algorithms
 DESIGN_PATTERNS_DIR = examples/design_patterns
 SERIALIZATION_DIR = examples/serialization
+MEMORY_POOLS_DIR = examples/memory_pools
+TEMPLATE_METAPROGRAMMING_DIR = examples/template_metaprogramming
+PERFORMANCE_OPTIMIZATION_DIR = examples/performance_optimization
+PLUGIN_SYSTEM_DIR = examples/plugin_system
 
 # Executable names
 EXECUTABLES = \
@@ -53,7 +57,11 @@ EXECUTABLES = \
 	$(MOVE_SEMANTICS_DIR)/move_semantics_demo \
 	$(ALGORITHMS_DIR)/algorithms_demo \
 	$(DESIGN_PATTERNS_DIR)/design_patterns_demo \
-	$(SERIALIZATION_DIR)/serialization_demo
+	$(SERIALIZATION_DIR)/serialization_demo \
+	$(MEMORY_POOLS_DIR)/memory_pools_demo \
+	$(TEMPLATE_METAPROGRAMMING_DIR)/template_metaprogramming_demo \
+	$(PERFORMANCE_OPTIMIZATION_DIR)/performance_optimization_demo \
+	$(PLUGIN_SYSTEM_DIR)/plugin_system_demo
 # Default target
 all: $(EXECUTABLES)
 
@@ -139,6 +147,18 @@ $(DESIGN_PATTERNS_DIR)/design_patterns_demo: $(DESIGN_PATTERNS_DIR)/design_patte
 $(SERIALIZATION_DIR)/serialization_demo: $(SERIALIZATION_DIR)/serialization_demo.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
+$(MEMORY_POOLS_DIR)/memory_pools_demo: $(MEMORY_POOLS_DIR)/memory_pools_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(TEMPLATE_METAPROGRAMMING_DIR)/template_metaprogramming_demo: $(TEMPLATE_METAPROGRAMMING_DIR)/template_metaprogramming_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(PERFORMANCE_OPTIMIZATION_DIR)/performance_optimization_demo: $(PERFORMANCE_OPTIMIZATION_DIR)/performance_optimization_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(PLUGIN_SYSTEM_DIR)/plugin_system_demo: $(PLUGIN_SYSTEM_DIR)/plugin_system_demo.cpp
+	$(CXX) $(CXXFLAGS) -ldl -o $@ $<
+
 # Clean build artifacts
 clean:
 	rm -f $(EXECUTABLES)
@@ -187,5 +207,9 @@ help:
 	@echo "  algorithms_demo"
 	@echo "  design_patterns_demo"
 	@echo "  serialization_demo"
+	@echo "  memory_pools_demo"
+	@echo "  template_metaprogramming_demo"
+	@echo "  performance_optimization_demo"
+	@echo "  plugin_system_demo"
 
 .PHONY: all clean run-all help
