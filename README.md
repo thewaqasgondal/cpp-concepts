@@ -25,8 +25,11 @@ A comprehensive reference guide for C++ programming concepts, syntax, and best p
 14. [File I/O](#file-io)
 15. [Concurrency](#concurrency)
 16. [Move Semantics](#move-semantics)
-17. [Advanced Topics](#advanced-topics)
-18. [Examples](#examples)
+17. [Algorithms](#algorithms)
+18. [Design Patterns](#design-patterns)
+19. [Serialization](#serialization)
+20. [Advanced Topics](#advanced-topics)
+21. [Examples](#examples)
 
 ---
 
@@ -84,6 +87,9 @@ make
 - **file_io/file_io_demo.cpp** - File input/output operations and filesystem library
 - **concurrency/concurrency_demo.cpp** - Threading, mutexes, condition variables, futures
 - **move_semantics/move_semantics_demo.cpp** - Rvalue references and move semantics
+- **algorithms/algorithms_demo.cpp** - Advanced STL algorithms (sorting, searching, modifying)
+- **design_patterns/design_patterns_demo.cpp** - Common design patterns (Singleton, Factory, Observer, etc.)
+- **serialization/serialization_demo.cpp** - Data serialization (JSON, binary, XML, CSV)
 
 Each example includes detailed comments explaining the concepts being demonstrated.
 
@@ -690,6 +696,179 @@ class MyClass {
 ```cpp
 string s1 = "hello";
 string s2 = move(s1);  // s1 is now empty
+```
+
+---
+
+## Algorithms
+
+### Non-modifying Algorithms
+```cpp
+vector<int> nums = {1, 2, 3, 4, 5};
+
+// Check if all elements satisfy condition
+bool all_even = all_of(nums.begin(), nums.end(), [](int x) { return x % 2 == 0; });
+
+// Check if any element satisfies condition
+bool has_even = any_of(nums.begin(), nums.end(), [](int x) { return x % 2 == 0; });
+
+// Check if no elements satisfy condition
+bool none_even = none_of(nums.begin(), nums.end(), [](int x) { return x % 2 == 0; });
+
+// Count elements
+int count_even = count_if(nums.begin(), nums.end(), [](int x) { return x % 2 == 0; });
+```
+
+### Modifying Algorithms
+```cpp
+vector<int> nums = {1, 2, 3, 4, 5};
+vector<int> result;
+
+// Transform elements
+transform(nums.begin(), nums.end(), back_inserter(result), [](int x) { return x * 2; });
+
+// Copy elements
+vector<int> copy;
+copy_if(nums.begin(), nums.end(), back_inserter(copy), [](int x) { return x > 3; });
+```
+
+### Sorting Algorithms
+```cpp
+vector<int> nums = {3, 1, 4, 1, 5, 9, 2, 6};
+
+// Sort in ascending order
+sort(nums.begin(), nums.end());
+
+// Sort in descending order
+sort(nums.rbegin(), nums.rend());
+
+// Stable sort (preserves relative order of equal elements)
+stable_sort(nums.begin(), nums.end());
+
+// Partial sort (sort first n elements)
+partial_sort(nums.begin(), nums.begin() + 3, nums.end());
+```
+
+---
+
+## Design Patterns
+
+### Singleton Pattern
+```cpp
+class Singleton {
+private:
+    static Singleton* instance;
+    Singleton() {}
+
+public:
+    static Singleton* getInstance() {
+        if (instance == nullptr) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+};
+```
+
+### Factory Pattern
+```cpp
+class Shape {
+public:
+    virtual void draw() = 0;
+};
+
+class Circle : public Shape {
+public:
+    void draw() override { cout << "Drawing circle" << endl; }
+};
+
+class ShapeFactory {
+public:
+    static Shape* createShape(const string& type) {
+        if (type == "circle") return new Circle();
+        return nullptr;
+    }
+};
+```
+
+### Observer Pattern
+```cpp
+class Observer {
+public:
+    virtual void update() = 0;
+};
+
+class Subject {
+private:
+    vector<Observer*> observers;
+
+public:
+    void addObserver(Observer* obs) {
+        observers.push_back(obs);
+    }
+
+    void notify() {
+        for (auto obs : observers) {
+            obs->update();
+        }
+    }
+};
+```
+
+---
+
+## Serialization
+
+### JSON Serialization
+```cpp
+// Simple JSON-like structure
+struct Person {
+    string name;
+    int age;
+    vector<string> hobbies;
+};
+
+// Serialize to JSON string
+string toJson(const Person& p) {
+    return "{\"name\":\"" + p.name + "\",\"age\":" + to_string(p.age) + "}";
+}
+
+// Deserialize from JSON (simplified)
+Person fromJson(const string& json) {
+    // Parse JSON string...
+    return Person{"John", 30, {"reading"}};
+}
+```
+
+### Binary Serialization
+```cpp
+// Serialize data to binary file
+void serialize(ofstream& out, const Person& p) {
+    size_t nameSize = p.name.size();
+    out.write(reinterpret_cast<const char*>(&nameSize), sizeof(nameSize));
+    out.write(p.name.c_str(), nameSize);
+    out.write(reinterpret_cast<const char*>(&p.age), sizeof(p.age));
+}
+
+// Deserialize from binary file
+void deserialize(ifstream& in, Person& p) {
+    size_t nameSize;
+    in.read(reinterpret_cast<char*>(&nameSize), sizeof(nameSize));
+    p.name.resize(nameSize);
+    in.read(&p.name[0], nameSize);
+    in.read(reinterpret_cast<char*>(&p.age), sizeof(p.age));
+}
+```
+
+### XML Serialization
+```cpp
+string toXml(const Person& p) {
+    string xml = "<person>\n";
+    xml += "  <name>" + p.name + "</name>\n";
+    xml += "  <age>" + to_string(p.age) + "</age>\n";
+    xml += "</person>\n";
+    return xml;
+}
 ```
 
 ---

@@ -1,0 +1,1 @@
+add_executable(design_patterns_demo design_patterns_demo.cpp)

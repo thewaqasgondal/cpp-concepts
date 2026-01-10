@@ -21,6 +21,9 @@ add_subdirectory(examples/modern_cpp)
 add_subdirectory(examples/file_io)
 add_subdirectory(examples/concurrency)
 add_subdirectory(examples/move_semantics)
+add_subdirectory(examples/algorithms)
+add_subdirectory(examples/design_patterns)
+add_subdirectory(examples/serialization)
 
 # Add tests
 add_subdirectory(test)

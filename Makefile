@@ -20,6 +20,9 @@ MODERN_CPP_DIR = examples/modern_cpp
 FILE_IO_DIR = examples/file_io
 CONCURRENCY_DIR = examples/concurrency
 MOVE_SEMANTICS_DIR = examples/move_semantics
+ALGORITHMS_DIR = examples/algorithms
+DESIGN_PATTERNS_DIR = examples/design_patterns
+SERIALIZATION_DIR = examples/serialization
 
 # Executable names
 EXECUTABLES = \
@@ -38,7 +41,10 @@ EXECUTABLES = \
 	$(MODERN_CPP_DIR)/modern_cpp_demo \
 	$(FILE_IO_DIR)/file_io_demo \
 	$(CONCURRENCY_DIR)/concurrency_demo \
-	$(MOVE_SEMANTICS_DIR)/move_semantics_demo
+	$(MOVE_SEMANTICS_DIR)/move_semantics_demo \
+	$(ALGORITHMS_DIR)/algorithms_demo \
+	$(DESIGN_PATTERNS_DIR)/design_patterns_demo \
+	$(SERIALIZATION_DIR)/serialization_demo
 
 # Default target
 all: $(EXECUTABLES)
@@ -92,6 +98,15 @@ $(CONCURRENCY_DIR)/concurrency_demo: $(CONCURRENCY_DIR)/concurrency_demo.cpp
 $(MOVE_SEMANTICS_DIR)/move_semantics_demo: $(MOVE_SEMANTICS_DIR)/move_semantics_demo.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
+$(ALGORITHMS_DIR)/algorithms_demo: $(ALGORITHMS_DIR)/algorithms_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(DESIGN_PATTERNS_DIR)/design_patterns_demo: $(DESIGN_PATTERNS_DIR)/design_patterns_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(SERIALIZATION_DIR)/serialization_demo: $(SERIALIZATION_DIR)/serialization_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
 # Clean build artifacts
 clean:
 	rm -f $(EXECUTABLES)
@@ -132,5 +147,8 @@ help:
 	@echo "  file_io_demo"
 	@echo "  concurrency_demo"
 	@echo "  move_semantics_demo"
+	@echo "  algorithms_demo"
+	@echo "  design_patterns_demo"
+	@echo "  serialization_demo"
 
 .PHONY: all clean run-all help
