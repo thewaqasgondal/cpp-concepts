@@ -24,6 +24,10 @@ examples/
 │   └── memory_demo.cpp    # new/delete, smart pointers, RAII
 └── stl/                   # Standard Template Library
     └── stl_demo.cpp       # Containers, algorithms, iterators
+└── advanced/              # Advanced examples (concurrency, modern C++, templates)
+    └── concurrency/
+    └── modern_cpp/
+    └── templates/
 ```
 
 ## Building
@@ -52,6 +56,9 @@ make
 ## Running Examples
 
 Each example can be run directly after building:
+./examples/advanced/concurrency/concurrency_demo
+./examples/advanced/modern_cpp/modern_cpp_demo
+./examples/advanced/templates/templates_demo
 
 ```bash
 ./examples/basics/hello_world

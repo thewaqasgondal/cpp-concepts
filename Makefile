@@ -1,7 +1,7 @@
 # C++ Concepts Examples - Makefile
 
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -O2
+CXXFLAGS = -std=c++23 -Wall -Wextra -O2
 
 # Source directories
 BASICS_DIR = examples/basics
@@ -16,6 +16,7 @@ EXCEPTIONS_DIR = examples/exceptions
 OOP_DIR = examples/oop
 MEMORY_DIR = examples/memory_management
 STL_DIR = examples/stl
+ADVANCED_DIR = examples/advanced
 MODERN_CPP_DIR = examples/modern_cpp
 FILE_IO_DIR = examples/file_io
 CONCURRENCY_DIR = examples/concurrency
@@ -38,6 +39,14 @@ EXECUTABLES = \
 	$(OOP_DIR)/oop_demo \
 	$(MEMORY_DIR)/memory_demo \
 	$(STL_DIR)/stl_demo \
+	$(ADVANCED_DIR)/concurrency/concurrency_demo \
+	$(ADVANCED_DIR)/modern_cpp/modern_cpp_demo \
+	$(ADVANCED_DIR)/templates/templates_demo \
+	$(ADVANCED_DIR)/coroutines/coroutines_demo \
+	$(ADVANCED_DIR)/thread_pool/thread_pool_demo \
+	$(ADVANCED_DIR)/thread_pool/thread_pool_tests \
+	$(ADVANCED_DIR)/dsa/dsa_demo \
+	$(ADVANCED_DIR)/dsa/dsa_tests \
 	$(MODERN_CPP_DIR)/modern_cpp_demo \
 	$(FILE_IO_DIR)/file_io_demo \
 	$(CONCURRENCY_DIR)/concurrency_demo \
@@ -45,7 +54,6 @@ EXECUTABLES = \
 	$(ALGORITHMS_DIR)/algorithms_demo \
 	$(DESIGN_PATTERNS_DIR)/design_patterns_demo \
 	$(SERIALIZATION_DIR)/serialization_demo
-
 # Default target
 all: $(EXECUTABLES)
 
@@ -82,6 +90,30 @@ $(OOP_DIR)/oop_demo: $(OOP_DIR)/oop_demo.cpp
 
 $(MEMORY_DIR)/memory_demo: $(MEMORY_DIR)/memory_demo.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
+$(ADVANCED_DIR)/concurrency/concurrency_demo: $(ADVANCED_DIR)/concurrency/concurrency_demo.cpp
+	$(CXX) $(CXXFLAGS) -pthread -o $@ $<
+
+$(ADVANCED_DIR)/modern_cpp/modern_cpp_demo: $(ADVANCED_DIR)/modern_cpp/modern_cpp_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(ADVANCED_DIR)/templates/templates_demo: $(ADVANCED_DIR)/templates/templates_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(ADVANCED_DIR)/coroutines/coroutines_demo: $(ADVANCED_DIR)/coroutines/coroutines_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(ADVANCED_DIR)/thread_pool/thread_pool_demo: $(ADVANCED_DIR)/thread_pool/thread_pool_demo.cpp $(ADVANCED_DIR)/thread_pool/thread_pool.h
+	$(CXX) $(CXXFLAGS) -pthread -o $@ $<
+
+$(ADVANCED_DIR)/thread_pool/thread_pool_tests: $(ADVANCED_DIR)/thread_pool/test/thread_pool_tests.cpp $(ADVANCED_DIR)/thread_pool/thread_pool.h
+	$(CXX) $(CXXFLAGS) -pthread -o $@ $< -I$(ADVANCED_DIR)/thread_pool -lstdc++ -lpthread
+
+$(ADVANCED_DIR)/dsa/dsa_demo: $(ADVANCED_DIR)/dsa/dsa_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(ADVANCED_DIR)/dsa/dsa_tests: $(ADVANCED_DIR)/dsa/dsa_tests.cpp $(ADVANCED_DIR)/dsa/dsa_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
 
 $(STL_DIR)/stl_demo: $(STL_DIR)/stl_demo.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
@@ -127,6 +159,11 @@ help:
 	@echo "Available targets:"
 	@echo "  all        - Build all examples"
 	@echo "  clean      - Remove all built executables"
+	@echo "  concurrency_demo"
+	@echo "  modern_cpp_demo"
+	@echo "  templates_demo"
+	@echo "  coroutines_demo"
+	@echo "  thread_pool_demo"
 	@echo "  run-all    - Build and run all examples"
 	@echo "  help       - Show this help message"
 	@echo ""

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(CppConceptsExamples)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Add all example subdirectories
@@ -17,6 +17,7 @@ add_subdirectory(examples/exceptions)
 add_subdirectory(examples/oop)
 add_subdirectory(examples/memory_management)
 add_subdirectory(examples/stl)
+add_subdirectory(examples/advanced)
 add_subdirectory(examples/modern_cpp)
 add_subdirectory(examples/file_io)
 add_subdirectory(examples/concurrency)
