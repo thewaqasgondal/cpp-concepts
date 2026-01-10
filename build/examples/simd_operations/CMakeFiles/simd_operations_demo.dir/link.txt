@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/simd_operations_demo.dir/simd_operations_demo.cpp.o -o simd_operations_demo 

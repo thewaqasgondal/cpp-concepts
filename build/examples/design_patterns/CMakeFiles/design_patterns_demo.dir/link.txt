@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/design_patterns_demo.dir/design_patterns_demo.cpp.o -o design_patterns_demo 

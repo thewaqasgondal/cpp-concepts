@@ -1,0 +1,10 @@
+{
+  "age": 28,
+  "height": 165.5,
+  "hobbies": [
+    "reading",
+    "hiking",
+    "coding"
+  ],
+  "name": "Alice Johnson"
+}

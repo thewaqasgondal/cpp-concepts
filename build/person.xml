@@ -1,0 +1,10 @@
+<person>
+  <name>Charlie Brown</name>
+  <age>42</age>
+  <height>175.20</height>
+  <hobbies>
+    <hobby>painting</hobby>
+    <hobby>music</hobby>
+    <hobby>gardening</hobby>
+  </hobbies>
+</person>

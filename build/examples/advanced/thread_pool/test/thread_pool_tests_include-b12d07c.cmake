@@ -1,0 +1,5 @@
+if(EXISTS "/workspaces/cpp-concepts/build/examples/advanced/thread_pool/test/thread_pool_tests_tests-b12d07c.cmake")
+  include("/workspaces/cpp-concepts/build/examples/advanced/thread_pool/test/thread_pool_tests_tests-b12d07c.cmake")
+else()
+  add_test(thread_pool_tests_NOT_BUILT-b12d07c thread_pool_tests_NOT_BUILT-b12d07c)
+endif()

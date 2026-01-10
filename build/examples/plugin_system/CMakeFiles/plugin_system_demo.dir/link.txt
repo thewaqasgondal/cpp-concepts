@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/plugin_system_demo.dir/plugin_system_demo.cpp.o -o plugin_system_demo  -ldl 
