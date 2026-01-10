@@ -1,0 +1,1 @@
+add_executable(serialization_demo serialization_demo.cpp)

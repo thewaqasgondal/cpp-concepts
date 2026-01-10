@@ -7,6 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
@@ -24,6 +25,10 @@ jobs:
           ./build/examples/advanced/templates/templates_demo || true
           ./build/examples/advanced/coroutines/coroutines_demo || true
           ./build/examples/advanced/thread_pool/thread_pool_demo || true
+          ./build/examples/basics/hello_world || true
+          ./build/examples/algorithms/algorithms_demo || true
+          ./build/examples/design_patterns/design_patterns_demo || true
+          ./build/examples/serialization/serialization_demo || true
       - name: Run tests (ctest)
         run: |
           cd build || exit 1

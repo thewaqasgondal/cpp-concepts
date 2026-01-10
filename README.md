@@ -1,5 +1,10 @@
 # C++ Cheatsheet
 
+[![C++](https://img.shields.io/badge/C%2B%2B-17/20/23-blue.svg)](https://isocpp.org/)
+[![CMake](https://img.shields.io/badge/CMake-3.10+-blue.svg)](https://cmake.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/thewaqasgondal/cpp-concepts/workflows/CI/badge.svg)](https://github.com/thewaqasgondal/cpp-concepts/actions)
+
 A comprehensive reference guide for C++ programming concepts, syntax, and best practices.
 
 ## Table of Contents
@@ -11,11 +16,20 @@ A comprehensive reference guide for C++ programming concepts, syntax, and best p
 5. [Arrays and Vectors](#arrays-and-vectors)
 6. [Pointers and References](#pointers-and-references)
 7. [Strings](#strings)
-8. [Object-Oriented Programming](#object-oriented-programming)
-9. [Memory Management](#memory-management)
-10. [Standard Library](#standard-library)
-11. [Advanced Topics](#advanced-topics)
-12. [Examples](#examples)
+8. [Templates](#templates)
+9. [Exception Handling](#exception-handling)
+10. [Object-Oriented Programming](#object-oriented-programming)
+11. [Memory Management](#memory-management)
+12. [Standard Library](#standard-library)
+13. [Modern C++ Features](#modern-c-features)
+14. [File I/O](#file-io)
+15. [Concurrency](#concurrency)
+16. [Move Semantics](#move-semantics)
+17. [Algorithms](#algorithms)
+18. [Design Patterns](#design-patterns)
+19. [Serialization](#serialization)
+20. [Advanced Topics](#advanced-topics)
+21. [Examples](#examples)
 
 ---
 
@@ -63,6 +77,9 @@ make
 - **functions/functions_demo.cpp** - Function declarations, overloading, and recursion
 - **arrays_vectors/arrays_vectors_demo.cpp** - Arrays and dynamic vectors
 - **pointers_references/pointers_references_demo.cpp** - Pointers, references, and memory addressing
+- **strings/strings_demo.cpp** - String operations, manipulation, and algorithms
+- **templates/templates_demo.cpp** - Function and class templates, specialization
+- **exceptions/exceptions_demo.cpp** - Exception handling, custom exceptions, RAII
 - **oop/oop_demo.cpp** - Classes, inheritance, polymorphism, and encapsulation
 - **memory_management/memory_demo.cpp** - Dynamic allocation and smart pointers
 - **stl/stl_demo.cpp** - Standard Template Library containers and algorithms
@@ -70,6 +87,13 @@ make
 - **advanced/modern_cpp/modern_cpp_demo.cpp** - Move semantics, smart pointers, and RVO demonstration
 - **advanced/templates/templates_demo.cpp** - C++20/C++23 concepts, type traits, and constexpr examples
 - **advanced/dsa/dsa_demo.cpp** - Data structures & algorithms: BFS, DFS, and Dijkstra
+- **modern_cpp/modern_cpp_demo.cpp** - Modern C++ features (auto, lambdas, smart pointers, etc.)
+- **file_io/file_io_demo.cpp** - File input/output operations and filesystem library
+- **concurrency/concurrency_demo.cpp** - Threading, mutexes, condition variables, futures
+- **move_semantics/move_semantics_demo.cpp** - Rvalue references and move semantics
+- **algorithms/algorithms_demo.cpp** - Advanced STL algorithms (sorting, searching, modifying)
+- **design_patterns/design_patterns_demo.cpp** - Common design patterns (Singleton, Factory, Observer, etc.)
+- **serialization/serialization_demo.cpp** - Data serialization (JSON, binary, XML, CSV)
 
 Each example includes detailed comments explaining the concepts being demonstrated.
 
@@ -309,6 +333,88 @@ str1.compare(str2);    // Returns 0 if equal, <0 or >0 if different
 
 ---
 
+## Templates
+
+### Function Templates
+```cpp
+// Function template
+template <typename T>
+T maximum(T a, T b) {
+    return (a > b) ? a : b;
+}
+
+// Usage
+int maxInt = maximum(5, 10);
+double maxDouble = maximum(3.14, 2.71);
+```
+
+### Class Templates
+```cpp
+template <typename T>
+class Container {
+private:
+    T data;
+public:
+    void set(T val) { data = val; }
+    T get() { return data; }
+};
+
+// Usage
+Container<int> intContainer;
+Container<string> stringContainer;
+```
+
+### Template Specialization
+```cpp
+template <>
+class Container<string> {
+    // Specialized implementation for strings
+};
+```
+
+---
+
+## Exception Handling
+
+### Basic Try-Catch
+```cpp
+try {
+    // Code that may throw exceptions
+    if (denominator == 0) {
+        throw runtime_error("Division by zero");
+    }
+} catch (const runtime_error& e) {
+    cout << "Error: " << e.what() << endl;
+}
+```
+
+### Multiple Catch Blocks
+```cpp
+try {
+    // Risky code
+} catch (const invalid_argument& e) {
+    // Handle invalid arguments
+} catch (const out_of_range& e) {
+    // Handle out of range errors
+} catch (const exception& e) {
+    // Handle any other standard exceptions
+} catch (...) {
+    // Handle any exception
+}
+```
+
+### Custom Exceptions
+```cpp
+class MyException : public exception {
+public:
+    const char* what() const noexcept override {
+        return "My custom error message";
+    }
+};
+```
+
+---
+
 ## Object-Oriented Programming
 
 ### Class Definition
@@ -493,6 +599,284 @@ infile.close();
 
 ---
 
+## Modern C++ Features
+
+### Auto and Decltype
+```cpp
+auto x = 42;        // int
+auto y = 3.14;      // double
+decltype(x) z = x;  // int (same type as x)
+```
+
+### Lambdas
+```cpp
+auto add = [](int a, int b) { return a + b; };
+auto result = add(5, 3);  // result = 8
+```
+
+### Smart Pointers
+```cpp
+auto ptr = make_unique<int>(42);
+auto shared = make_shared<string>("hello");
+```
+
+---
+
+## File I/O
+
+### Text File Operations
+```cpp
+// Writing
+ofstream outfile("file.txt");
+outfile << "Hello, World!" << endl;
+
+// Reading
+ifstream infile("file.txt");
+string line;
+while (getline(infile, line)) {
+    cout << line << endl;
+}
+```
+
+### Binary File Operations
+```cpp
+vector<int> data = {1, 2, 3, 4, 5};
+ofstream binfile("data.bin", ios::binary);
+binfile.write(reinterpret_cast<const char*>(data.data()),
+              data.size() * sizeof(int));
+```
+
+---
+
+## Concurrency
+
+### Threads
+```cpp
+thread t([]() {
+    cout << "Hello from thread!" << endl;
+});
+t.join();
+```
+
+### Mutex
+```cpp
+mutex mtx;
+int shared_data = 0;
+
+void worker() {
+    lock_guard<mutex> lock(mtx);
+    shared_data++;
+}
+```
+
+### Futures
+```cpp
+auto future = async([]() { return 42; });
+int result = future.get();
+```
+
+---
+
+## Move Semantics
+
+### Rvalue References
+```cpp
+int&& rref = 42;  // rvalue reference
+string&& str_ref = string("temp");  // rvalue reference
+```
+
+### Move Constructor
+```cpp
+class MyClass {
+    MyClass(MyClass&& other) noexcept {
+        // Move resources from other
+        data = other.data;
+        other.data = nullptr;
+    }
+};
+```
+
+### std::move
+```cpp
+string s1 = "hello";
+string s2 = move(s1);  // s1 is now empty
+```
+
+---
+
+## Algorithms
+
+### Non-modifying Algorithms
+```cpp
+vector<int> nums = {1, 2, 3, 4, 5};
+
+// Check if all elements satisfy condition
+bool all_even = all_of(nums.begin(), nums.end(), [](int x) { return x % 2 == 0; });
+
+// Check if any element satisfies condition
+bool has_even = any_of(nums.begin(), nums.end(), [](int x) { return x % 2 == 0; });
+
+// Check if no elements satisfy condition
+bool none_even = none_of(nums.begin(), nums.end(), [](int x) { return x % 2 == 0; });
+
+// Count elements
+int count_even = count_if(nums.begin(), nums.end(), [](int x) { return x % 2 == 0; });
+```
+
+### Modifying Algorithms
+```cpp
+vector<int> nums = {1, 2, 3, 4, 5};
+vector<int> result;
+
+// Transform elements
+transform(nums.begin(), nums.end(), back_inserter(result), [](int x) { return x * 2; });
+
+// Copy elements
+vector<int> copy;
+copy_if(nums.begin(), nums.end(), back_inserter(copy), [](int x) { return x > 3; });
+```
+
+### Sorting Algorithms
+```cpp
+vector<int> nums = {3, 1, 4, 1, 5, 9, 2, 6};
+
+// Sort in ascending order
+sort(nums.begin(), nums.end());
+
+// Sort in descending order
+sort(nums.rbegin(), nums.rend());
+
+// Stable sort (preserves relative order of equal elements)
+stable_sort(nums.begin(), nums.end());
+
+// Partial sort (sort first n elements)
+partial_sort(nums.begin(), nums.begin() + 3, nums.end());
+```
+
+---
+
+## Design Patterns
+
+### Singleton Pattern
+```cpp
+class Singleton {
+private:
+    static Singleton* instance;
+    Singleton() {}
+
+public:
+    static Singleton* getInstance() {
+        if (instance == nullptr) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+};
+```
+
+### Factory Pattern
+```cpp
+class Shape {
+public:
+    virtual void draw() = 0;
+};
+
+class Circle : public Shape {
+public:
+    void draw() override { cout << "Drawing circle" << endl; }
+};
+
+class ShapeFactory {
+public:
+    static Shape* createShape(const string& type) {
+        if (type == "circle") return new Circle();
+        return nullptr;
+    }
+};
+```
+
+### Observer Pattern
+```cpp
+class Observer {
+public:
+    virtual void update() = 0;
+};
+
+class Subject {
+private:
+    vector<Observer*> observers;
+
+public:
+    void addObserver(Observer* obs) {
+        observers.push_back(obs);
+    }
+
+    void notify() {
+        for (auto obs : observers) {
+            obs->update();
+        }
+    }
+};
+```
+
+---
+
+## Serialization
+
+### JSON Serialization
+```cpp
+// Simple JSON-like structure
+struct Person {
+    string name;
+    int age;
+    vector<string> hobbies;
+};
+
+// Serialize to JSON string
+string toJson(const Person& p) {
+    return "{\"name\":\"" + p.name + "\",\"age\":" + to_string(p.age) + "}";
+}
+
+// Deserialize from JSON (simplified)
+Person fromJson(const string& json) {
+    // Parse JSON string...
+    return Person{"John", 30, {"reading"}};
+}
+```
+
+### Binary Serialization
+```cpp
+// Serialize data to binary file
+void serialize(ofstream& out, const Person& p) {
+    size_t nameSize = p.name.size();
+    out.write(reinterpret_cast<const char*>(&nameSize), sizeof(nameSize));
+    out.write(p.name.c_str(), nameSize);
+    out.write(reinterpret_cast<const char*>(&p.age), sizeof(p.age));
+}
+
+// Deserialize from binary file
+void deserialize(ifstream& in, Person& p) {
+    size_t nameSize;
+    in.read(reinterpret_cast<char*>(&nameSize), sizeof(nameSize));
+    p.name.resize(nameSize);
+    in.read(&p.name[0], nameSize);
+    in.read(reinterpret_cast<char*>(&p.age), sizeof(p.age));
+}
+```
+
+### XML Serialization
+```cpp
+string toXml(const Person& p) {
+    string xml = "<person>\n";
+    xml += "  <name>" + p.name + "</name>\n";
+    xml += "  <age>" + to_string(p.age) + "</age>\n";
+    xml += "</person>\n";
+    return xml;
+}
+```
+
+---
+
 ## Advanced Topics
 
 ### Templates
@@ -605,4 +989,4 @@ for (auto num : v) {
 
 ---
 
-**Last Updated:** December 13, 2025
+**Last Updated:** January 6, 2026

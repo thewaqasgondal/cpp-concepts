@@ -1,0 +1,1 @@
+add_executable(modern_cpp_demo modern_cpp_demo.cpp)
