@@ -28,6 +28,11 @@ MEMORY_POOLS_DIR = examples/memory_pools
 TEMPLATE_METAPROGRAMMING_DIR = examples/template_metaprogramming
 PERFORMANCE_OPTIMIZATION_DIR = examples/performance_optimization
 PLUGIN_SYSTEM_DIR = examples/plugin_system
+COROUTINES_DIR = examples/coroutines
+CONCEPTS_DIR = examples/concepts
+RANGES_DIR = examples/ranges
+PARALLEL_ALGORITHMS_DIR = examples/parallel_algorithms
+SIMD_OPERATIONS_DIR = examples/simd_operations
 
 # Executable names
 EXECUTABLES = \
@@ -61,7 +66,12 @@ EXECUTABLES = \
 	$(MEMORY_POOLS_DIR)/memory_pools_demo \
 	$(TEMPLATE_METAPROGRAMMING_DIR)/template_metaprogramming_demo \
 	$(PERFORMANCE_OPTIMIZATION_DIR)/performance_optimization_demo \
-	$(PLUGIN_SYSTEM_DIR)/plugin_system_demo
+	$(PLUGIN_SYSTEM_DIR)/plugin_system_demo \
+	$(COROUTINES_DIR)/modern_coroutines_demo \
+	$(CONCEPTS_DIR)/concepts_demo \
+	$(RANGES_DIR)/ranges_demo \
+	$(PARALLEL_ALGORITHMS_DIR)/parallel_algorithms_demo \
+	$(SIMD_OPERATIONS_DIR)/simd_operations_demo
 # Default target
 all: $(EXECUTABLES)
 
@@ -159,6 +169,21 @@ $(PERFORMANCE_OPTIMIZATION_DIR)/performance_optimization_demo: $(PERFORMANCE_OPT
 $(PLUGIN_SYSTEM_DIR)/plugin_system_demo: $(PLUGIN_SYSTEM_DIR)/plugin_system_demo.cpp
 	$(CXX) $(CXXFLAGS) -ldl -o $@ $<
 
+$(COROUTINES_DIR)/modern_coroutines_demo: $(COROUTINES_DIR)/coroutines_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(CONCEPTS_DIR)/concepts_demo: $(CONCEPTS_DIR)/concepts_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(RANGES_DIR)/ranges_demo: $(RANGES_DIR)/ranges_demo.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(PARALLEL_ALGORITHMS_DIR)/parallel_algorithms_demo: $(PARALLEL_ALGORITHMS_DIR)/parallel_algorithms_demo.cpp
+	$(CXX) $(CXXFLAGS) -pthread -o $@ $<
+
+$(SIMD_OPERATIONS_DIR)/simd_operations_demo: $(SIMD_OPERATIONS_DIR)/simd_operations_demo.cpp
+	$(CXX) $(CXXFLAGS) -march=native -o $@ $<
+
 # Clean build artifacts
 clean:
 	rm -f $(EXECUTABLES)
@@ -211,5 +236,10 @@ help:
 	@echo "  template_metaprogramming_demo"
 	@echo "  performance_optimization_demo"
 	@echo "  plugin_system_demo"
+	@echo "  modern_coroutines_demo"
+	@echo "  concepts_demo"
+	@echo "  ranges_demo"
+	@echo "  parallel_algorithms_demo"
+	@echo "  simd_operations_demo"
 
 .PHONY: all clean run-all help

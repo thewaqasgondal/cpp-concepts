@@ -1,0 +1,1 @@
+add_executable(template_metaprogramming_demo template_metaprogramming_demo.cpp)

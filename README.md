@@ -32,8 +32,13 @@ A comprehensive reference guide for C++ programming concepts, syntax, and best p
 21. [Template Metaprogramming](#template-metaprogramming)
 22. [Performance Optimization](#performance-optimization)
 23. [Plugin System](#plugin-system)
-24. [Advanced Topics](#advanced-topics)
-25. [Examples](#examples)
+24. [Coroutines](#coroutines)
+25. [Concepts](#concepts)
+26. [Ranges](#ranges)
+27. [Parallel Algorithms](#parallel-algorithms)
+28. [SIMD Operations](#simd-operations)
+29. [Advanced Topics](#advanced-topics)
+30. [Examples](#examples)
 
 ---
 
@@ -102,6 +107,11 @@ make
 - **template_metaprogramming/template_metaprogramming_demo.cpp** - Type traits, SFINAE, constexpr, and expression templates
 - **performance_optimization/performance_optimization_demo.cpp** - Cache-friendly code, branch prediction, and profiling
 - **plugin_system/plugin_system_demo.cpp** - Dynamic plugin loading and management system
+- **coroutines/modern_coroutines_demo.cpp** - C++20 coroutines, generators, async tasks, and cooperative multitasking
+- **concepts/concepts_demo.cpp** - C++20 concepts for template constraints and better error messages
+- **ranges/ranges_demo.cpp** - C++20 ranges for functional-style programming and lazy evaluation
+- **parallel_algorithms/parallel_algorithms_demo.cpp** - C++17 parallel algorithms with execution policies
+- **simd_operations/simd_operations_demo.cpp** - SIMD operations, vectorization, and performance optimization
 
 Each example includes detailed comments explaining the concepts being demonstrated.
 
@@ -1040,6 +1050,256 @@ public:
     bool unloadPlugin(const string& pluginName);
     bool executePlugin(const string& pluginName);
 };
+```
+
+---
+
+## Coroutines
+
+C++20 feature for cooperative multitasking and asynchronous programming.
+
+### Basic Coroutine
+```cpp
+#include <coroutine>
+#include <iostream>
+
+struct Task {
+    struct promise_type {
+        Task get_return_object() { return {}; }
+        std::suspend_always initial_suspend() { return {}; }
+        std::suspend_always final_suspend() noexcept { return {}; }
+        void return_void() {}
+        void unhandled_exception() {}
+    };
+};
+
+Task simpleCoroutine() {
+    std::cout << "Coroutine started" << std::endl;
+    co_await std::suspend_always{};
+    std::cout << "Coroutine resumed" << std::endl;
+}
+```
+
+### Generator Coroutine
+```cpp
+template<typename T>
+struct Generator {
+    struct promise_type {
+        T current_value;
+        Generator get_return_object() { return {}; }
+        std::suspend_always initial_suspend() { return {}; }
+        std::suspend_always final_suspend() noexcept { return {}; }
+        std::suspend_always yield_value(T value) {
+            current_value = value;
+            return {};
+        }
+        void return_void() {}
+        void unhandled_exception() {}
+    };
+
+    std::coroutine_handle<promise_type> handle;
+    // ... implementation
+};
+
+Generator<int> fibonacci() {
+    int a = 0, b = 1;
+    while (true) {
+        co_yield a;
+        int temp = a;
+        a = b;
+        b = temp + b;
+    }
+}
+```
+
+---
+
+## Concepts
+
+C++20 feature for constraining template parameters.
+
+### Basic Concepts
+```cpp
+#include <concepts>
+
+template<typename T>
+concept Integral = std::is_integral_v<T>;
+
+template<typename T>
+concept FloatingPoint = std::is_floating_point_v<T>;
+
+template<typename T>
+concept Number = Integral<T> || FloatingPoint<T>;
+```
+
+### Constrained Templates
+```cpp
+template<Number T>
+T add(T a, T b) {
+    return a + b;
+}
+
+template<Integral T>
+T multiply(T a, T b) {
+    return a * b;
+}
+```
+
+### Container Concept
+```cpp
+template<typename T>
+concept Container = requires(T t) {
+    typename T::value_type;
+    typename T::iterator;
+    { t.begin() } -> std::same_as<typename T::iterator>;
+    { t.end() } -> std::same_as<typename T::iterator>;
+    { t.size() } -> std::integral;
+};
+```
+
+---
+
+## Ranges
+
+C++20 feature for functional-style programming with sequences.
+
+### Basic Range Operations
+```cpp
+#include <ranges>
+#include <vector>
+#include <algorithm>
+
+std::vector<int> numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+// Filter even numbers
+auto even_numbers = numbers | std::views::filter([](int x) { return x % 2 == 0; });
+
+// Transform to squares
+auto squares = numbers | std::views::transform([](int x) { return x * x; });
+
+// Chain operations
+auto result = numbers
+             | std::views::filter([](int x) { return x > 3; })
+             | std::views::transform([](int x) { return x * 2; })
+             | std::views::take(3);
+```
+
+### Range Algorithms
+```cpp
+#include <ranges>
+
+// Using ranges with algorithms
+std::vector<int> data = {3, 1, 4, 1, 5, 9, 2, 6};
+
+// Sort using ranges
+std::ranges::sort(data);
+
+// Find using ranges
+auto found = std::ranges::find(data, 5);
+```
+
+---
+
+## Parallel Algorithms
+
+C++17 feature for parallel execution of standard algorithms.
+
+### Execution Policies
+```cpp
+#include <execution>
+#include <vector>
+#include <algorithm>
+
+std::vector<int> data = {3, 1, 4, 1, 5, 9, 2, 6};
+
+// Sequential sort
+std::sort(data.begin(), data.end());
+
+// Parallel sort
+std::sort(std::execution::par, data.begin(), data.end());
+
+// Parallel unsequenced sort (may reorder operations)
+std::sort(std::execution::par_unseq, data.begin(), data.end());
+```
+
+### Parallel Transform
+```cpp
+#include <execution>
+#include <vector>
+#include <algorithm>
+
+std::vector<double> input = {1.0, 2.0, 3.0, 4.0, 5.0};
+std::vector<double> output(input.size());
+
+// Parallel transform
+std::transform(std::execution::par, input.begin(), input.end(), output.begin(),
+               [](double x) { return std::sqrt(x); });
+```
+
+### Parallel Reduce
+```cpp
+#include <execution>
+#include <vector>
+#include <numeric>
+
+std::vector<int> data(1000000, 1);
+
+// Parallel sum
+int sum = std::reduce(std::execution::par, data.begin(), data.end(), 0);
+```
+
+---
+
+## SIMD Operations
+
+Single Instruction, Multiple Data operations for performance.
+
+### Compiler Vectorization
+```cpp
+#include <vector>
+
+// This loop may be auto-vectorized by the compiler
+void vector_add(const std::vector<float>& a, const std::vector<float>& b, std::vector<float>& c) {
+    for (size_t i = 0; i < a.size(); ++i) {
+        c[i] = a[i] + b[i];
+    }
+}
+```
+
+### Structure of Arrays (SoA)
+```cpp
+// Array of Structures (AoS) - may have cache misses
+struct Particle_AoS {
+    float x, y, z, mass;
+};
+std::vector<Particle_AoS> particles_aos;
+
+// Structure of Arrays (SoA) - better for SIMD
+struct Particles_SoA {
+    std::vector<float> x, y, z, mass;
+};
+Particles_SoA particles_soa;
+```
+
+### Memory Alignment
+```cpp
+#include <cstdlib>
+
+// Allocate aligned memory for SIMD operations
+float* aligned_data = static_cast<float*>(std::aligned_alloc(32, size * sizeof(float)));
+// Use aligned_data...
+std::free(aligned_data);
+```
+
+### SIMD-Friendly Code
+```cpp
+// Branchless operations are SIMD-friendly
+float branchless_abs(float x) {
+    // Use bit manipulation instead of branching
+    uint32_t bits = *reinterpret_cast<uint32_t*>(&x);
+    bits &= 0x7FFFFFFF;  // Clear sign bit
+    return *reinterpret_cast<float*>(&bits);
+}
 ```
 
 ---
